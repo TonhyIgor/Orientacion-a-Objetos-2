@@ -1,18 +1,34 @@
-package tps.tp4.ui;
+package tps.tp4.ejercicio1;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AgregarParticipanteView extends JFrame {
+public class AgregarParticipante extends JFrame {
+    private Connection dbConn;
     private JTextField nombre;
     private JTextField telefono;
     private JTextField region;
 
-    public AgregarParticipanteView() {
+    public AgregarParticipante() throws SQLException {
+        setupBaseDeDatos();
+        setupUIComponents();
+    }
+
+    private void setupBaseDeDatos() throws SQLException {
+        String url = "jdbc:derby://localhost:1527/participantes";
+        String user = "app";
+        String password = "app";
+        this.dbConn = DriverManager.getConnection(url, user, password);
+    }
+
+    private void setupUIComponents() {
         setTitle("Add Participant");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +48,6 @@ public class AgregarParticipanteView extends JFrame {
         contentPane.add(new JLabel("Region: "));
         contentPane.add(region);
         JButton botonCargar = new JButton("Cargar");
-
         botonCargar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -50,7 +65,33 @@ public class AgregarParticipanteView extends JFrame {
     }
 
     private void onBotonCargar() throws SQLException {
-
+        if (nombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe cargar un nombre");
+            return;
+        }
+        if (telefono.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe cargar un telefono");
+            return;
+        }
+        if (!validarTelefono(telefono.getText())) {
+            JOptionPane.showMessageDialog(this, "El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
+            return;
+        }
+        if (!region.getText().equals("China") && !region.getText().equals("US") && !
+                region.getText().equals("Europa")) {
+            JOptionPane.showMessageDialog(this, "Region desconocida. Las conocidas son: China, US, Europa");
+            return;
+        }
+        PreparedStatement st = dbConn
+                .prepareStatement("insert into participantes(nombre, telefono, region) values(?,?,?)");
+        try {
+            st.setString(1, nombre.getText());
+            st.setString(2, telefono.getText());
+            st.setString(3, region.getText());
+            st.executeUpdate();
+        } finally {
+            st.close();
+        }
         dispose();
     }
 
@@ -59,5 +100,3 @@ public class AgregarParticipanteView extends JFrame {
         return telefono.matches(regex);
     }
 }
-
-
