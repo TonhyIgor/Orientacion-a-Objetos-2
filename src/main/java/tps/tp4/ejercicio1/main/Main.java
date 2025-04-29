@@ -1,6 +1,6 @@
 package tps.tp4.ejercicio1.main;
 
-import tps.tp4.ejercicio1.database.JdbcManejoParticipante;
+import tps.tp4.ejercicio1.database.JdbcRegistroParticipante;
 import tps.tp4.ejercicio1.model.ApiPersistencia;
 import tps.tp4.ejercicio1.ui.AgregarParticipanteView;
 
@@ -25,7 +25,7 @@ public class Main {
             @Override
             public void run() {
                 try {
-                    JdbcManejoParticipante manejoParticipante = new JdbcManejoParticipante(URL, USER, PASSWORD);
+                    JdbcRegistroParticipante manejoParticipante = new JdbcRegistroParticipante(URL, USER, PASSWORD);
                     ApiPersistencia api = new ApiPersistencia(manejoParticipante);
                     new AgregarParticipanteView(api).launchView();
                 } catch (Exception e) {

@@ -1,16 +1,18 @@
 package tps.tp4.ejercicio1.database;
 
+import tps.tp4.ejercicio1.model.RegistroParticipante;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class JdbcManejoParticipante implements ManejoParticipante {
+public class JdbcRegistroParticipante implements RegistroParticipante {
     private String url;
     private String user;
     private String password;
 
-    public JdbcManejoParticipante(String url, String user, String password) {
+    public JdbcRegistroParticipante(String url, String user, String password) {
         this.url = url;
         this.user = user;
         this.password = password;

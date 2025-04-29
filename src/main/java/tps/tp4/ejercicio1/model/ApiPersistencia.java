@@ -1,11 +1,9 @@
 package tps.tp4.ejercicio1.model;
 
-import tps.tp4.ejercicio1.database.ManejoParticipante;
-
 public class ApiPersistencia implements Persistencia {
-    private ManejoParticipante conexion;
+    private RegistroParticipante conexion;
 
-    public ApiPersistencia(ManejoParticipante conexion) {
+    public ApiPersistencia(RegistroParticipante conexion) {
         this.conexion = conexion;
     }
 
