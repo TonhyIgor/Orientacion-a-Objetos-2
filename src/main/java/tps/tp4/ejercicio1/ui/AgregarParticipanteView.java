@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class AgregarParticipanteView extends JFrame {
     private JTextField nombre;
@@ -42,11 +41,7 @@ public class AgregarParticipanteView extends JFrame {
 
         botonCargar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    onBotonCargar();
-                } catch (SQLException e1) {
-                    throw new RuntimeException(e1);
-                }
+                onBotonCargar();
             }
         });
         contentPane.add(botonCargar);
@@ -56,7 +51,9 @@ public class AgregarParticipanteView extends JFrame {
         setVisible(true);
     }
 
-    private void onBotonCargar() throws SQLException {
+    //se tiene que eliminar el throws SQLException
+    //ya que esto genera dependencia con la capa de database
+    private void onBotonCargar() {
         try {
             this.api.agregarParticipante(nombre.getText(), telefono.getText(), region.getText());
             dispose();

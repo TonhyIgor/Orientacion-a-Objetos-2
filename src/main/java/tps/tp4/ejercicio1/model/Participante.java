@@ -13,16 +13,16 @@ public class Participante {
     }
 
     private void validarDatos(String nombre, String telefono, String region) {
-        if (this.nombre == null || this.nombre.equals("")) {
+        if (nombre == null || nombre.equals("")) {
             throw new RuntimeException("Debe cargar un nombre");
         }
-        if (this.telefono == null || this.telefono.equals("")) {
+        if (telefono == null || telefono.equals("")) {
             throw new RuntimeException("Debe cargar un telefono");
         }
-        if (!validarTelefono(this.telefono)) {
+        if (!validarTelefono(telefono)) {
             throw new RuntimeException("El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
         }
-        if (!this.region.equals("China") && !this.region.equals("US") && !this.region.equals("Europa")) {
+        if (!region.equals("China") && !region.equals("US") && !region.equals("Europa")) {
             throw new RuntimeException("Region desconocida. Las conocidas son: China, US, Europa");
         }
     }
