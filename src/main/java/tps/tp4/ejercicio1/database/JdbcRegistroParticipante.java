@@ -1,5 +1,6 @@
 package tps.tp4.ejercicio1.database;
 
+import tps.tp4.ejercicio1.model.Participante;
 import tps.tp4.ejercicio1.model.RegistroParticipante;
 
 import java.sql.Connection;
@@ -27,13 +28,13 @@ public class JdbcRegistroParticipante implements RegistroParticipante {
     }
 
     @Override
-    public void agregarParticipante(String nombre, String telefono, String region) {
+    public void registrarParticipante(Participante participante) {
         try (var conexion = open();
              PreparedStatement st = conexion
                      .prepareStatement("insert into participantes(nombre, telefono, region) values(?,?,?)");) {
-            st.setString(1, nombre);
-            st.setString(2, telefono);
-            st.setString(3, region);
+            st.setString(1, participante.nombre());
+            st.setString(2, participante.telefono());
+            st.setString(3, participante.region());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Hubo un problema con la base de datos" + e);

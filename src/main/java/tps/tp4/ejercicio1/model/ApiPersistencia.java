@@ -10,6 +10,6 @@ public class ApiPersistencia implements Persistencia {
     @Override
     public void agregarParticipante(String nombre, String telefono, String region) {
         Participante participante = new Participante(nombre, telefono, region);
-        this.registrar.agregarParticipante(participante.nombre(), participante.telefono(), participante.region());
+        this.registrar.registrarParticipante(participante);
     }
 }

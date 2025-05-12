@@ -13,10 +13,10 @@ public class Participante {
     }
 
     private void validarDatos(String nombre, String telefono, String region) {
-        if (nombre == null || nombre.equals("")) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new RuntimeException("Debe cargar un nombre");
         }
-        if (telefono == null || telefono.equals("")) {
+        if (telefono == null || telefono.isEmpty()) {
             throw new RuntimeException("Debe cargar un telefono");
         }
         if (!validarTelefono(telefono)) {

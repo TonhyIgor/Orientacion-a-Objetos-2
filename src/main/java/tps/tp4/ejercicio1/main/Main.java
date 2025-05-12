@@ -25,8 +25,8 @@ public class Main {
             @Override
             public void run() {
                 try {
-                    JdbcRegistroParticipante manejoParticipante = new JdbcRegistroParticipante(URL, USER, PASSWORD);
-                    ApiPersistencia api = new ApiPersistencia(manejoParticipante);
+                    var manejoParticipante = new JdbcRegistroParticipante(URL, USER, PASSWORD);
+                    var api = new ApiPersistencia(manejoParticipante);
                     new AgregarParticipanteView(api).launchView();
                 } catch (Exception e) {
                     throw new RuntimeException("Hubo un problema al inicio" + e);
