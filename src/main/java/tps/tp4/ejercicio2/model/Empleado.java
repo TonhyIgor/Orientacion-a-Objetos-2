@@ -6,12 +6,16 @@ import java.time.MonthDay;
 import static java.time.MonthDay.from;
 
 public class Empleado {
+    private String nombre;
+    private String apellido;
     private LocalDate fechaNacimiento;
-    private String medioDeNotificacion;
+    private String email;
 
-    public Empleado(LocalDate fechaNacimiento, String medioDeNotificacion) {
+    public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, String email) {
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
-        this.medioDeNotificacion = medioDeNotificacion;
+        this.email = email;
     }
 
     public boolean esTuCumple(MonthDay fechaActual) {
@@ -19,6 +23,6 @@ public class Empleado {
     }
 
     public String medioNotificacion() {
-        return this.medioDeNotificacion;
+        return this.email;
     }
 }
