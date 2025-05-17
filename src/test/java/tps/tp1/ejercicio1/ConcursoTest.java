@@ -13,65 +13,65 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ConcursoTest {
     private List<Inscripcion> listaInscripciones;
-    private Participante participante1;
+    private Participante participante;
 
     @BeforeEach
     void setUp() {
         listaInscripciones = new ArrayList<>();
-        participante1 = new Participante("nombre1", "apellido1", 123456, "p2222");
+        participante = new Participante("nombre1", "apellido1", 123456, "p2222");
     }
 
     @Test
     void testInscribir() {
         listaInscripciones = new ArrayList<>();
-        var participante1 = new Participante("nombre1", "apellido1", 123456, "p2222");
+        var participante = new Participante("nombre1", "apellido1", 123456, "p2222");
         var registro = new EnMemoriaRegistrarInscripcion();
         var informador = new FakeInformar();
-        var concurso1 = new Concurso(listaInscripciones,
+        var concurso = new Concurso(listaInscripciones,
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 "c2222", registro, informador);
-        concurso1.inscribirPersona(participante1);
-        assertTrue(concurso1.existeInscripcionParticipante(participante1));
+        concurso.inscribirPersona(participante);
+        assertTrue(concurso.existeInscripcionParticipante(participante));
     }
 
     @Test
     void testIncribirPrimerDia() {
         listaInscripciones = new ArrayList<>();
-        var participante1 = new Participante("nombre1", "apellido1", 123456, "p2222");
+        var participante = new Participante("nombre1", "apellido1", 123456, "p2222");
         var registro = new EnMemoriaRegistrarInscripcion();
         var informador = new FakeInformar();
-        var concurso1 = new Concurso(listaInscripciones,
+        var concurso = new Concurso(listaInscripciones,
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 "c2222", registro, informador);
-        concurso1.inscribirPersona(participante1);
-        assertEquals(10, participante1.getPuntos());
+        concurso.inscribirPersona(participante);
+        assertEquals(10, participante.getPuntos());
     }
 
     @Test
     void testIncribirFueraDeRango() {
         listaInscripciones = new ArrayList<>();
-        var participante1 = new Participante("nombre1", "apellido1", 123456, "p2222");
+        var participante = new Participante("nombre1", "apellido1", 123456, "p2222");
         var registro = new EnMemoriaRegistrarInscripcion();
         var informador = new FakeInformar();
-        var concurso1 = new Concurso(listaInscripciones,
+        var concurso = new Concurso(listaInscripciones,
                 LocalDate.now().plusDays(3),
                 LocalDate.now(),
                 "c2222", registro, informador);
-        assertThrows(RuntimeException.class, () -> concurso1.inscribirPersona(participante1));
-        assertFalse(concurso1.existeInscripcionParticipante(participante1));
+        assertThrows(RuntimeException.class, () -> concurso.inscribirPersona(participante));
+        assertFalse(concurso.existeInscripcionParticipante(participante));
     }
 
     @Test
     void testRegistro() throws MessagingException {
         var registro = new EnMemoriaRegistrarInscripcion();
         var informador = new FakeInformar();
-        var concurso1 = new Concurso(listaInscripciones,
+        var concurso = new Concurso(listaInscripciones,
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 "c2222", registro, informador);
-        concurso1.inscribirPersona(participante1);
+        concurso.inscribirPersona(participante);
         assertEquals(valorEsperadoExportar(), registro.getData());
     }
 
@@ -79,11 +79,11 @@ public class ConcursoTest {
     void testInformar() {
         var registro = new EnMemoriaRegistrarInscripcion();
         var informador = new FakeInformar();
-        var concurso1 = new Concurso(listaInscripciones,
+        var concurso = new Concurso(listaInscripciones,
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 "c2222", registro, informador);
-        concurso1.inscribirPersona(participante1);
+        concurso.inscribirPersona(participante);
         assertEquals(valorEsperadoInformar(), informador.getData());
     }
 

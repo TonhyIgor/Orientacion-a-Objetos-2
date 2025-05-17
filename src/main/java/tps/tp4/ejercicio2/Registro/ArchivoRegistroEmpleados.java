@@ -6,6 +6,7 @@ import tps.tp4.ejercicio2.model.RegistroEmpleados;
 
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class ArchivoRegistroEmpleados implements RegistroEmpleados {
         List<String[]> empleadosCSV = datosCSV();
         List<Empleado> empleadosRegistrados = new ArrayList<>();
 
-        empleadosCSV.stream().forEach(e -> {
-            Empleado empleado = new Empleado(e[1], e[0], LocalDate.parse(e[2]), e[3]);
+        empleadosCSV.forEach(e -> {
+            Empleado empleado = new Empleado(e[1], e[0], LocalDate.parse(e[2], DateTimeFormatter.ofPattern("yyyy/MM/dd")), e[3]);
             empleadosRegistrados.add(empleado);
         });
 
